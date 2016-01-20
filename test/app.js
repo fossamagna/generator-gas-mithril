@@ -14,6 +14,7 @@ describe('generator-gas-mithril:app', function () {
   it('creates files', function () {
     assert.file([
       'package.json',
+      'gas-rest-config.json',
       '.gitignore',
       '.babelrc',
       'README.md',

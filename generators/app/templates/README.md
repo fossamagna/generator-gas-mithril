@@ -36,7 +36,7 @@ $ npm run dev
 * Client JavaScript files will be recompiled by [watchify](https://github.com/substack/watchify).
 * Local Http Server will be launched and serve client HTML, CSS and JavaScript.
 
-**Note** : In local development mode, Client JavaScript use [Execution API](https://developers.google.com/apps-script/guides/rest/api) to invoke Apps Script. Before you execute `npm run dev` command, you should be create configuration file as gas-rest-config.json in your project root directory.
+**Note** : In local development mode, Client JavaScript use [Execution API](https://developers.google.com/apps-script/guides/rest/api) to invoke Apps Script. Before you execute `npm run dev` command, you should be edit configuration file as gas-rest-config.json in your project root directory.
 
 ### Example
 gas-rest-config.json :
