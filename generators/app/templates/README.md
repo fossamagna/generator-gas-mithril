@@ -42,15 +42,10 @@ $ npm run dev
 gas-rest-config.json :
 ```json
 {
-  "dev": {
+  "local": {
     "clientId": "<YOUR_CLIENT_ID>",
     "scopes": ["https://www.googleapis.com/auth/spreadsheets"],
     "scriptId": "<YOUR_SCRIPT_ID_FOR_DEVELOPMENT>"
-  },
-  "test": {
-    "clientId": "<YOUR_CLIENT_ID>",
-    "scopes": ["https://www.googleapis.com/auth/spreadsheets"],
-    "scriptId": "<YOUR_SCRIPT_ID_FOR_TEST>"
   }
 }
 ```
