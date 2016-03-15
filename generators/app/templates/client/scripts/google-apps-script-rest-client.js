@@ -1,30 +1,65 @@
 /* global gapi */
+
+const MAX_RETRY_COUNT = 5;
+
 class Client {
   constructor(options) {
     this.clientId = options.clientId;
     this.scopes = options.scopes;
     this.scriptId = options.scriptId;
+    this.initDone = false;
+    this.retryCount = 0;
+  }
+
+  getToken() {
+    if (this.initDone) {
+      return Promise.resolve(gapi.auth.getToken());
+    }
+    const self = this;
+    const timeout = 500;
+    const timeoutHandler = (resolve, reject) => {
+      return () => {
+        if (self.initDone) {
+          resolve(gapi.auth.getToken());
+        } else {
+          if (self.retryCount < MAX_RETRY_COUNT) {
+            self.retryCount++;
+            setTimeout(timeoutHandler(resolve, reject), timeout * (self.retryCount + 1));
+          } else {
+            self.retryCount = 0;
+            reject();
+          }
+        }
+      };
+    };
+    return new Promise((resolve, reject) => {
+      setTimeout(timeoutHandler(resolve, reject), timeout * (self.retryCount + 1));
+    });
   }
 
   run(name, args) {
-    const token = gapi.auth.getToken();
-    if (token && token.expires_at - new Date().getTime() / 1000 >= 60) {
-      return this.callScriptFunction(name, args);
-    }
-    return new Promise((resolve, reject) => {
-      this.checkAuth(Boolean(token), authResult => {
-        if (authResult && !authResult.error) {
-          this.callScriptFunction(name, args)
-          .then(result => {
-            resolve(result);
-          })
-          .catch(err => {
-            reject(err);
+    this.retryCount = 0;
+    return this.getToken()
+    .then(token => {
+      if (token && token.expires_at - new Date().getTime() / 1000 >= 60) {
+        return this.callScriptFunction(name, args);
+      } else {
+        return new Promise((resolve, reject) => {
+          this.checkAuth(Boolean(token), authResult => {
+            if (authResult && !authResult.error) {
+              this.callScriptFunction(name, args)
+              .then(result => {
+                resolve(result);
+              })
+              .catch(err => {
+                reject(err);
+              });
+            } else {
+              reject(authResult.error);
+            }
           });
-        } else {
-          reject(authResult.error);
-        }
-      });
+        });
+      }
     });
   }
 
@@ -98,8 +133,9 @@ class Client {
         immediate: true
       },
       /* eslint-enable camelcase */
-      authResult => {
-        console.log(authResult);
+      () => {
+        this.initDone = true;
+        this.retryCount = 0;
       });
   }
 }
