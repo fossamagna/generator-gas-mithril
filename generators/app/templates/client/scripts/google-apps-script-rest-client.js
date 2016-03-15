@@ -37,7 +37,7 @@ class Client {
     });
   }
 
-  run(name, args) {
+  run(name, ...args) {
     this.retryCount = 0;
     return this.getToken()
     .then(token => {

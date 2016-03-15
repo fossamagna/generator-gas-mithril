@@ -11,7 +11,7 @@ const app = {
     this.handleAuthClick = () => {
       m.startComputation();
       client
-      .run('echo', [ctl.message()])
+      .run('echo', ctl.message())
       .then(message => {
         ctl.result(message);
         m.endComputation();
