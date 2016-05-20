@@ -1,14 +1,14 @@
 'use strict';
 var path = require('path');
 var assert = require('yeoman-assert');
-var helpers = require('yeoman-generator').test;
+var helpers = require('yeoman-test');
 
 describe('generator-gas-mithril:app', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../generators/app'))
+  before(function () {
+    return helpers.run(path.join(__dirname, '../generators/app'))
       .withOptions({appName: 'awesaomeApp'})
       .withPrompts({githubUsername: 'foo'})
-      .on('end', done);
+      .toPromise();
   });
 
   it('creates files', function () {
