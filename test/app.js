@@ -22,8 +22,6 @@ describe('generator-gas-mithril:app', function () {
       'client/index.html',
       'client/scripts/main.js',
       'client/scripts/gas-client.js',
-      'client/scripts/google-apps-script-run.js',
-      'client/scripts/google-apps-script-rest-client.js',
       'server/echo.js',
       'server/main.js'
     ]);
