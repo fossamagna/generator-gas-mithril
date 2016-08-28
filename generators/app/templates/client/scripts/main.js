@@ -1,7 +1,7 @@
 'use strict';
 
 const m = require('mithril');
-const client = require('./gas-client');
+const request = require('./gas-mithril-request');
 
 const app = {
   controller: function () {
@@ -9,16 +9,10 @@ const app = {
     this.message = m.prop('');
     this.result = m.prop();
     this.handleAuthClick = () => {
-      m.startComputation();
-      client
-      .run('echo', ctl.message())
-      .then(message => {
+      request('echo', ctl.message()).then(message => {
         ctl.result(message);
-        m.endComputation();
-      })
-      .catch(e => {
+      }).catch(e => {
         ctl.result(e);
-        m.endComputation();
       });
     };
   },
