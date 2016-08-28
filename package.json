@@ -34,6 +34,9 @@
     "yeoman-assert": "^2.2.1"
   },
   "repository": "fossamagna/generator-gas-mithril",
+  "engines": {
+    "node": ">=4.0"
+  },
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"
