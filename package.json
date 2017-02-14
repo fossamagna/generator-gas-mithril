@@ -31,7 +31,7 @@
     "gulp-nsp": "^2.4.1",
     "gulp-plumber": "^1.0.0",
     "underscore.string": "^3.2.2",
-    "yeoman-assert": "^2.2.1"
+    "yeoman-assert": "^3.0.0"
   },
   "repository": "fossamagna/generator-gas-mithril",
   "engines": {
