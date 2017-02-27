@@ -17,9 +17,15 @@ const app = {
     };
   },
   view: ctl => {
-    return <div>
-            <button type="button" onclick={ctl.handleAuthClick}>Echo</button>
-            <input type="text" onchange={m.withAttr('value', ctl.message)} value={ctl.message()}></input>
+    return <div class="row">
+            <form class="form-inline">
+              <div class="form-group">
+                <input type="text" class="form-control" id="message"
+                  placeholder="Echo Message"
+                  onchange={m.withAttr('value', ctl.message)} value={ctl.message()}/>
+              </div>{' '}
+              <button type="button" class="btn btn-default" onclick={ctl.handleAuthClick}>Echo</button>
+            </form>
             <p>{ctl.result()}</p>
            </div>;
   }
