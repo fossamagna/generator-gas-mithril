@@ -1,22 +1,24 @@
 'use strict';
 
 const m = require('mithril');
-const request = require('./gas-mithril-request');
+const prop = require('mithril/stream');
+const request = require('./gas-mithril-request').request;
 
 const app = {
-  controller: function () {
-    const ctl = this;
-    this.message = m.prop('');
-    this.result = m.prop();
-    this.handleAuthClick = () => {
-      request('echo', ctl.message()).then(message => {
-        ctl.result(message);
-      }).catch(e => {
-        ctl.result(e);
-      });
-    };
+  oninit: function (vnode) {
+    vnode.state.message = prop('');
+    vnode.state.result = prop();
   },
-  view: ctl => {
+  handleAuthClick: function () {
+    const state = this;
+    request('echo', state.message()).then(message => {
+      state.result(message);
+    }).catch(e => {
+      state.result(e);
+    });
+  },
+  view: vnode => {
+    const ctl = vnode.state;
     return <div class="row">
             <form class="form-inline">
               <div class="form-group">
@@ -24,7 +26,7 @@ const app = {
                   placeholder="Echo Message"
                   onchange={m.withAttr('value', ctl.message)} value={ctl.message()}/>
               </div>{' '}
-              <button type="button" class="btn btn-default" onclick={ctl.handleAuthClick}>Echo</button>
+              <button type="button" class="btn btn-default" onclick={ctl.handleAuthClick.bind(ctl)}>Echo</button>
             </form>
             <p>{ctl.result()}</p>
            </div>;
