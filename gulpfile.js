@@ -1,11 +1,11 @@
 'use strict';
 var path = require('path');
 var gulp = require('gulp');
+var babel = require("gulp-babel");
 var eslint = require('gulp-eslint');
 var excludeGitignore = require('gulp-exclude-gitignore');
 var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
-var msx = require('gulp-msx');
 var nsp = require('gulp-nsp');
 var plumber = require('gulp-plumber');
 var coveralls = require('gulp-coveralls');
@@ -24,7 +24,14 @@ gulp.task('nsp', function (cb) {
 
 gulp.task('pre-test', function () {
   return gulp.src('generators/**/*.js')
-    .pipe(msx({harmony: true}))
+    .pipe(babel({
+      presets: ['es2015'],
+      plugins: [
+        ["transform-react-jsx", {
+          "pragma": "m"
+        }]
+      ]
+    }))
     .pipe(istanbul({
       includeUntested: false
     }))

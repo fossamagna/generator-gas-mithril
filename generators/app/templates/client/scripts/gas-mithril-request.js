@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const m = require('mithril');
 const client = require('./gas-client');
