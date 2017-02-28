@@ -1,4 +1,8 @@
 {
   "presets": [ "es2015" ],
-  "plugins": [ "mjsx" ]
+  "plugins": [
+    ["transform-react-jsx", {
+      "pragma": "m"
+    }]
+  ]
 }

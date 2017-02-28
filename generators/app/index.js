@@ -4,7 +4,7 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var _s = require('underscore.string');
 
-module.exports = yeoman.Base.extend({
+module.exports = yeoman.extend({
   prompting: function () {
     var done = this.async();
 
@@ -66,6 +66,6 @@ module.exports = yeoman.Base.extend({
   },
 
   install: function () {
-    //this.installDependencies({bower: false});
+    this.installDependencies({bower: false});
   }
 });
