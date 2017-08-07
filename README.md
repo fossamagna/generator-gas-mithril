@@ -1,4 +1,6 @@
 # generator-gas-mithril [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/fossamagna/generator-gas-mithril.svg)](https://greenkeeper.io/)
 > Google Apps Script + Mithril Web Application Generator
 
 ## Installation
